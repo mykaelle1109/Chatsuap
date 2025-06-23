@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChatSUAP</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <div class="animated-shapes">
+  <!-- Grupo 1: círculos -->
+  <div class="shape circle delay1" style="top: 8%; left: 10%;"></div>
+  <div class="shape circle delay2" style="top: 60%; left: 15%;"></div>
+  <div class="shape circle delay3" style="top: 40%; left: 80%;"></div>
+
+  <!-- Grupo 2: anéis -->
+  <div class="shape ring delay4" style="top: 70%; left: 80%;"></div>
+  <div class="shape ring-thick delay5" style="top: 20%; left: 60%;"></div>
+  <div class="shape ring delay6" style="top: 85%; left: 5%;"></div>
+
+  <!-- Grupo 3: barras horizontais e diagonais -->
+  <div class="shape bar delay7" style="top: 20%; left: 65%;"></div>
+  <div class="shape diagonal-bar delay8" style="top: 50%; left: 30%;"></div>
+  <div class="shape diagonal-bar delay9" style="top: 75%; left: 45%;"></div>
+
+  <!-- Grupo 4: pontos -->
+  <div class="shape dot delay10" style="top: 60%; left: 40%;"></div>
+  <div class="shape dot delay11" style="top: 35%; left: 25%;"></div>
+  <div class="shape dot delay12" style="top: 90%; left: 90%;"></div>
+
+  <!-- Grupo 5: cruzes -->
+  <div class="shape cross delay13" style="top: 50%; left: 20%;"></div>
+  <div class="shape cross delay14" style="top: 15%; left: 85%;"></div>
+
+  <!-- Grupo 6: losangos -->
+  <div class="shape diamond delay15" style="top: 30%; left: 90%;"></div>
+  <div class="shape diamond delay16" style="top: 10%; left: 45%;"></div>
+
+  <!-- Grupo 7: linhas tracejadas -->
+  <div class="shape dash-line delay17" style="top: 5%; left: 65%;"></div>
+  <div class="shape dash-line delay18" style="top: 90%; left: 25%;"></div>
+
+  <!-- Grupo 8: grids pontilhados -->
+  <div class="shape dotted-grid delay19" style="top: 25%; left: 10%;"></div>
+  <div class="shape dotted-grid delay20" style="top: 70%; left: 70%;"></div>
+
+  <!-- Extras -->
+  <div class="shape bar delay21" style="top: 30%; left: 55%;"></div>
+  <div class="shape diagonal-bar delay22" style="top: 55%; left: 75%;"></div>
+  <div class="shape ring delay23" style="top: 80%; left: 40%;"></div>
+  <div class="shape circle delay24" style="top: 12%; left: 70%;"></div>
+
+
+<div class="screen" id="start-screen">
+      <div class="start-content">
+        <img
+          src="/static/images/image 10.png"
+          alt="Bot"
+          class="bot-avatar"
+          style="width: 150px"
+        />
+        <h1>ChatSUAP</h1>
+        <button onclick="startChat('professor')">SOU PROFESSOR</button>
+        <button onclick="startChat('aluno')">SOU ALUNO</button>
+      </div>
+</div>
+
+    
+  <script>
+  // Função para iniciar o chat: oculta a tela inicial e mostra o chat
+  function startChat(role) {
+    alert(`Você escolheu: ${role}`);
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("chat-screen").style.display = "flex";
+  }
+
+  // Função assíncrona para enviar a mensagem e receber resposta da API
+  async function sendMessage() {
+    const input = document.getElementById("userInput");
+    const chat = document.getElementById("chat");
+    const message = input.value.trim();
+
+    if (message === "") return;
+
+    // Mostra a mensagem do usuário na tela
+    const userMsg = document.createElement("div");
+    userMsg.className = "message user";
+    userMsg.textContent = message;
+    chat.appendChild(userMsg);
+
+    // Limpa o campo de input
+    input.value = "";
+
+    // Scroll para o final do chat
+    chat.scrollTop = chat.scrollHeight;
+
+    try {
+      // Envia para o backend
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+
+      const data = await response.json();
+
+      // Mostra a resposta do bot
+      const botMsg = document.createElement("div");
+      botMsg.className = "message bot";
+      botMsg.textContent = data.response;
+      chat.appendChild(botMsg);
+
+      // Scroll para o final do chat
+      chat.scrollTop = chat.scrollHeight;
+
+    } catch (error) {
+      console.error("Erro ao enviar mensagem:", error);
+    }
+  }
+</script>
+
+</body>
+</html>
