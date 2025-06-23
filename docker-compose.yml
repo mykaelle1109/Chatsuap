@@ -1,0 +1,10 @@
+services:
+  chatbot:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - OPENAI_API_KEY=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
+    volumes:
+      - ./docs:/app/docs
+    restart: unless-stopped
