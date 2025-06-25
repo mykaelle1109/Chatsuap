@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block title %}ChatSUAP - Home{% endblock %} {%
+block content %}
+<div class="start-content">
+  <img
+    src="{{ url_for('static', filename='images/image 10.png') }}"
+    alt="Bot"
+    class="bot-avatar"
+    style="width: 150px"
+  />
+<a href="{{ url_for('professor') }}">
+  <button>SOU PROFESSOR</button>
+</a>
+<a href="{{ url_for('aluno') }}">
+  <button>SOU ALUNO</button>
+</a>
+
+</div>
+{% endblock %}

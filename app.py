@@ -11,18 +11,24 @@ documents = SimpleDirectoryReader("docs").load_data()
 index = VectorStoreIndex.from_documents(documents)
 chat_engine = index.as_chat_engine()
 
-@app.route("/")
-def index():
-    return render_template("home.html")
-@app.route("/chat")
-def index():
-    return render_template("chat.html")
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/professor')
+def professor():
+    return render_template('professor.html')
+
+@app.route('/aluno')
+def aluno():
+    return render_template('aluno.html')
 
 @app.route("/chat", methods=["POST"])
 def chat():
     user_input = request.json.get("message")
     response = chat_engine.chat(user_input)
     return jsonify({"response": response.response})
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
