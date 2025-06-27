@@ -1,18 +1,19 @@
 {% extends "base.html" %}
 {% block title %}ChatSUAP - Home{% endblock %}
 {% block content %}
-<div class="start-content">
+<div class="d-flex flex-column justify-content-center align-items-center text-center vh-100">
   <img
     src="{{ url_for('static', filename='images/image 10.png') }}"
     alt="Bot"
-    class="bot-avatar"
+    class="bot-avatar mb-4"
     style="width: 150px"
   />
-  <a href="{{ url_for('professor') }}">
-    <button>SOU PROFESSOR</button>
+  <a href="{{ url_for('professor') }}" class="mb-2">
+    <button class="btn btn-primary">SOU PROFESSOR</button>
   </a>
   <a href="{{ url_for('aluno') }}">
-    <button>SOU ALUNO</button>
+    <button class="btn btn-secondary">SOU ALUNO</button>
   </a>
 </div>
+
 {% endblock %}

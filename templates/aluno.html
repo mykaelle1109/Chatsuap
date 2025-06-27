@@ -1,38 +1,82 @@
 {% extends "base.html" %}
 {% block title %}ChatSUAP - Aluno{% endblock %}
 {% block content %}
- <div class="chat-window" id="chat">
+<div class="container py-5">
+  <div class="card shadow py-5 mx-auto" style="max-width: 720px; height: 80vh; display: flex; flex-direction: column;">
+    
+    <div id="chat" class="card-body overflow-auto" style="flex: 1; background-color: #f8f9fa;"></div>
+    
+    <div class="card-footer bg-white border-top d-flex align-items-center p-3">
+      <input id="userInput" type="text" class="form-control me-2 rounded-pill" placeholder="Digite sua mensagem..." />
+      <button class="btn btn-primary rounded-pill" onclick="sendMessage()">Enviar</button>
+    </div>
+  </div>
 </div>
-<div class="chat-input">
-  <input id="userInput" type="text" placeholder="Digite sua mensagem..." />
-  <button onclick="sendMessage()">Enviar</button>
-</div>
-
-
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const chat = document.getElementById("chat");
-    const botMsg = document.createElement("div");
-    botMsg.className = "message bot";
-    botMsg.textContent = "Olá aluno, como posso te ajudar hoje?";
-    chat.appendChild(botMsg);
+    appendBotMessage("Olá aluno, como posso te ajudar hoje?");
   });
+
+  function getCurrentTime() {
+    return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function appendUserMessage(message) {
+    const container = document.getElementById("chat");
+    const wrapper = document.createElement("div");
+    wrapper.className = "d-flex justify-content-end align-items-end mb-3";
+
+    wrapper.innerHTML = `
+      <div class="bg-primary text-white rounded-4 px-3 py-2" style="max-width: 70%;">
+        <p class="mb-1">${message}</p>
+        <small class="text-end d-block opacity-75">${getCurrentTime()}</small>
+      </div>
+      <img src="/static/images/user-avatar.png" class="ms-2 rounded-circle" style="width: 32px; height: 32px;">
+    `;
+
+    container.appendChild(wrapper);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function appendBotMessage(message) {
+    const container = document.getElementById("chat");
+    const wrapper = document.createElement("div");
+    wrapper.className = "d-flex justify-content-start align-items-end mb-3";
+
+    wrapper.innerHTML = `
+      <img src="/static/images/bot-avatar.png" class="me-2 rounded-circle" style="width: 32px; height: 32px;">
+      <div class="bg-light text-dark rounded-4 px-3 py-2" style="max-width: 70%;">
+        <p class="mb-1"></p>
+        <small class="text-end d-block opacity-75">${getCurrentTime()}</small>
+      </div>
+    `;
+
+    container.appendChild(wrapper);
+    const p = wrapper.querySelector("p");
+
+    // Efeito de digitação
+    let i = 0;
+    const typingSpeed = 20;
+    function typeChar() {
+      if (i < message.length) {
+        p.textContent += message.charAt(i);
+        i++;
+        setTimeout(typeChar, typingSpeed);
+      }
+    }
+    typeChar();
+
+    container.scrollTop = container.scrollHeight;
+  }
 
   async function sendMessage() {
     const input = document.getElementById("userInput");
-    const chat = document.getElementById("chat");
     const message = input.value.trim();
+    if (!message) return;
 
-    if (message === "") return;
-
-    const userMsg = document.createElement("div");
-    userMsg.className = "message user";
-    userMsg.textContent = message;
-    chat.appendChild(userMsg);
-
+    appendUserMessage(message);
     input.value = "";
-    chat.scrollTop = chat.scrollHeight;
 
     try {
       const response = await fetch("/chat", {
@@ -42,16 +86,11 @@
       });
 
       const data = await response.json();
-
-      const botMsg = document.createElement("div");
-      botMsg.className = "message bot";
-      botMsg.textContent = data.response;
-      chat.appendChild(botMsg);
-
-      chat.scrollTop = chat.scrollHeight;
+      appendBotMessage(data.response);
     } catch (error) {
       console.error("Erro:", error);
     }
   }
 </script>
 {% endblock %}
+
