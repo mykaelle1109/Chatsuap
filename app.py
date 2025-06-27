@@ -1,15 +1,36 @@
-import os
 from flask import Flask, request, jsonify, render_template
-from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
+from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, ServiceContext
+from llama_index.llms import OpenAI
+from llama_index.prompts import PromptTemplate
 import openai
+import os
 
-openai.api_key ='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'
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 
 documents = SimpleDirectoryReader("docs").load_data()
 index = VectorStoreIndex.from_documents(documents)
-chat_engine = index.as_chat_engine()
+
+custom_prompt = PromptTemplate(
+    "Você é um assistente educacional do SUAP, especializado em orientar alunos e professores do IFRO. "
+    "Use as informações fornecidas nos documentos como base para suas respostas. "
+    "Forneça um passo por vez"
+    "utilize linguagem simples"
+    "Se a pergunta estiver fora do contexto dos documentos, diga que não sabe. "
+    "Pergunta: {query_str}"
+)
+
+
+llm = OpenAI(temperature=0.2, model="gpt-3.5-turbo")
+service_context = ServiceContext.from_defaults(llm=llm)
+
+chat_engine = index.as_chat_engine(
+    chat_mode="context",
+    service_context=service_context,
+    text_qa_template=custom_prompt,
+    verbose=True
+)
 
 @app.route('/')
 def home():
@@ -29,7 +50,5 @@ def chat():
     response = chat_engine.chat(user_input)
     return jsonify({"response": response.response})
 
-
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=5000)

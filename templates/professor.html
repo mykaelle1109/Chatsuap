@@ -1,10 +1,10 @@
 {% extends "base.html" %} {% block title %}ChatSUAP - Professor{% endblock %} {%
 block content %}
 <div class="chat-window" id="chat">
-  <div class="chat-input">
-    <input id="userInput" type="text" placeholder="Digite sua mensagem..." />
-    <button onclick="sendMessage()">Enviar</button>
-  </div>
+</div>
+<div class="chat-input">
+  <input id="userInput" type="text" placeholder="Digite sua mensagem..." />
+  <button onclick="sendMessage()">Enviar</button>
 </div>
 
 <script>
@@ -16,6 +16,7 @@ block content %}
     if (message === "") return;
 
     const userMsg = document.createElement("div");
+    
     userMsg.className = "message user";
     userMsg.textContent = message;
     chat.appendChild(userMsg);
