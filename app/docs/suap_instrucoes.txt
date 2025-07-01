@@ -1,0 +1,26 @@
+#Reserva de Laboratório
+
+##Caminho: Administração → Salas
+
+1.Informar o nome do campus e clicar em Filtrar.
+2.Clicar em Todos para visualizar todas as salas do campus.
+3.Selecionar a sala desejada para visualizar o calendário de agendamentos.
+4.Informar a recorrência da reserva (semanal ou quinzenal).
+5.Informar a data de início e fim.
+
+6.Informar o horário de início e fim.
+7.Inserir os interessados (outros professores).
+8.Adicionar uma justificativa.
+9.Anexar documentos, se necessário.
+
+#Lançamento de Notas
+
+##Caminho: Ensino → Turmas e Diários → Meu Diário
+
+1.Visualizar todas as turmas em que já deu ou está dando aula.
+2.Clicar em Acessar Diário da turma desejada.
+3.Visualizar todas as ações disponíveis para a turma.
+4.Clicar em Registro de Notas e Conceitos.
+5.Selecionar o filtro “Todos”.
+6.Visualizar todos os alunos da turma.
+7.O sistema arredonda notas com casas decimais para cima automaticamente.
