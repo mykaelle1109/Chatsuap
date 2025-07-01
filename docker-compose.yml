@@ -1,10 +1,20 @@
 services:
+
+  redis:
+    image: redis:7-alpine
+    container_name: chat-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
   chatbot:
     build: .
     ports:
       - "5000:5000"
+    depends_on:
+      - redis
     environment:
       - OPENAI_API_KEY=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
     volumes:
-      - ./docs:/app/docs
+      - ./app:/app
     restart: unless-stopped

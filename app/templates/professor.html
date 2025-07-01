@@ -1,0 +1,139 @@
+{% extends "base.html" %} {% block title %}ChatSUAP - Aluno{% endblock %} {%
+block content %}
+<div class="container align-items-center">
+  <div
+    class="card shadow p-0 mx-auto"
+    style="
+      max-width: 720px;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      border: #2100e6;
+    "
+  >
+    <div
+      class="justify-top p-3 text-center fs-5 text-white fw-bolder"
+      style="background-color: #3313e9"
+    >
+      ChatSuap
+    </div>
+    <div
+      id="chat"
+      class="card-body overflow-auto px-2"
+      style="flex: 1; background-color: #ffffff"
+    ></div>
+
+    <div class="card-footer bg-white border-top d-flex align-items-center p-3">
+      <input
+        id="userInput"
+        type="text"
+        class="form-control border-2 me-2 rounded-pill"
+        style="border-color: #2100e6"
+        placeholder="Digite sua mensagem..."
+      />
+      <button
+        class="btn rounded-pill"
+        style="background-color: #3313e9"
+        onclick="sendMessage()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="27"
+          height="27"
+          fill="#ffffff"
+          viewBox="0 0 256 256"
+        >
+          <path
+            d="M227.32,28.68a16,16,0,0,0-15.66-4.08l-.15,0L19.57,82.84a16,16,0,0,0-2.49,29.8L102,154l41.3,84.87A15.86,15.86,0,0,0,157.74,248q.69,0,1.38-.06a15.88,15.88,0,0,0,14-11.51l58.2-191.94c0-.05,0-.1,0-.15A16,16,0,0,0,227.32,28.68ZM157.83,231.85l-.05.14,0-.07-40.06-82.3,48-48a8,8,0,0,0-11.31-11.31l-48,48L24.08,98.25l-.07,0,.14,0L216,40Z"
+          ></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function getCurrentTime() {
+    return new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  function appendUserMessage(message) {
+    const container = document.getElementById("chat");
+    const wrapper = document.createElement("div");
+    wrapper.className = "d-flex justify-content-end align-items-end mb-3";
+
+    wrapper.innerHTML = `
+      <div class="bg-primary text-white rounded-4 px-3 py-2" style="max-width: 70%;">
+        <p class="mb-1">${message}</p>
+        <small class="text-end d-block opacity-75">${getCurrentTime()}</small>
+      </div>
+      <img src="/static/images/user-avatar.png" class="ms-2 rounded-circle" style="width: 32px; height: 32px;">
+    `;
+
+    container.appendChild(wrapper);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function appendBotMessage(message) {
+    const container = document.getElementById("chat");
+    const wrapper = document.createElement("div");
+    wrapper.className = "d-flex justify-content-start align-items-end mb-3";
+
+    wrapper.innerHTML = `
+      <img src="/static/images/bot-avatar.png" class="me-2 rounded-circle" style="width: 32px; height: 32px;">
+      <div class="bg-light text-dark rounded-4 px-3 py-2 d-flex flex-column"
+          style="max-width: 70%; white-space: pre-wrap; line-height: 1.4; gap: 4px;">
+        <p class="mb-0" style="margin: 0;"></p>
+        <small class="text-end text-muted">${getCurrentTime()}</small>
+      </div>
+    `;
+
+    container.appendChild(wrapper);
+    const p = wrapper.querySelector("p");
+
+    let i = 0;
+    const typingSpeed = 20;
+
+    function typeChar() {
+      if (i < message.length) {
+        p.textContent += message.charAt(i);
+        i++;
+        setTimeout(typeChar, typingSpeed);
+      }
+    }
+
+    typeChar();
+    container.scrollTop = container.scrollHeight;
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById("userInput");
+    const message = input.value.trim();
+    if (!message) return;
+
+    appendUserMessage(message);
+    input.value = "";
+
+    try {
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message, role: "professor" }),
+      });
+
+      const data = await response.json();
+      appendBotMessage(data.response);
+    } catch (error) {
+      console.error("Erro:", error);
+    }
+  }
+    document.addEventListener("DOMContentLoaded", function () {
+    const mensagemInicial = "Olá professor, como posso te ajudar hoje?";
+    appendBotMessage(mensagemInicial);
+  });
+</script>
+
+{% endblock %}
