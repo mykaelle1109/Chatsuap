@@ -1,26 +1,108 @@
-#Reserva de Laboratório
+# Reserva de Laboratório
 
-##Caminho: Administração → Salas
+**Caminho:** Administração → Salas
 
-1.Informar o nome do campus e clicar em Filtrar.
-2.Clicar em Todos para visualizar todas as salas do campus.
-3.Selecionar a sala desejada para visualizar o calendário de agendamentos.
-4.Informar a recorrência da reserva (semanal ou quinzenal).
-5.Informar a data de início e fim.
+**Passos:**
+1. Informar o nome do campus e clicar em "Filtrar".
+2. Clicar em "Todos" para visualizar todas as salas do campus.
+3. Selecionar a sala desejada para visualizar o calendário de agendamentos.
+4. Informar a recorrência da reserva (semanal ou quinzenal).
+5. Informar a data de início e a data de fim.
+6. Informar o horário de início e o horário de fim.
+7. Inserir os interessados (outros professores).
+8. Adicionar uma justificativa.
+9. Anexar documentos, se necessário.
 
-6.Informar o horário de início e fim.
-7.Inserir os interessados (outros professores).
-8.Adicionar uma justificativa.
-9.Anexar documentos, se necessário.
+---
+# Atividades Complementares
 
-#Lançamento de Notas
+**Caminho:** Perfil -> Atividades Complementares
 
-##Caminho: Ensino → Turmas e Diários → Meu Diário
+**Passos**
+1. Acesse o SUAP
+2. Vá em seu perfil, clicando em sua foto
+3. Clique em Atividades Complementares
+4. Visualize todas as suas atividades cadastradas e o total que deverá ser cumprido
+5. Selecione o botão 'Informar atividade complementar'
+6. Preencha as informações necessárias na caixa de dialogo que será aberta
+7. Anexe seu documento comprobatório e clique em salvar
+8. Sua solicitação será adicionada à tabela de atividades complementares
+8. Aguarde seu coordenador validar sua atividade acompanhando as colunas 'Deferida' e 'Razão do indeferimento'
 
-1.Visualizar todas as turmas em que já deu ou está dando aula.
-2.Clicar em Acessar Diário da turma desejada.
-3.Visualizar todas as ações disponíveis para a turma.
-4.Clicar em Registro de Notas e Conceitos.
-5.Selecionar o filtro “Todos”.
-6.Visualizar todos os alunos da turma.
-7.O sistema arredonda notas com casas decimais para cima automaticamente.
+---
+
+# Solicitação de documentos
+
+**Caminho:** Perfil -> Documentos com Autenticação
+
+**Passos**
+1. Acesse o SUAP
+2. Vá em seu perfil, clicando em sua foto
+3. Clique em 'Documentos com Autenticação'
+4. Clique no botão 'Solicitar Documentos'
+5. Selecione a opção de documento que atende sua necessidade
+6. Confirme o pedido de impressão na caixa que aparecerá em sua tela
+7. Após a confirmação da impressão aguarde 5 minutos e não atualize a página
+8. Por fim, baixe seu documento clicando no botão 'Download' que irá aparecer ao lado da sua solicitação 
+
+---
+
+# Lançamento de Notas
+
+**Caminho:** Ensino → Turmas e Diários → Meu Diário
+
+**Passos:**
+1. Visualizar todas as turmas em que esteve ou estar com o vínculo ativo.
+2. Clicar em "Acessar Diário" da turma desejada.
+3. Visualizar todas as ações disponíveis para a turma.
+4. Clicar em "Registro de Notas e Conceitos".
+5. Selecionar o filtro "Todos".
+6. Visualizar todos os alunos da turma.
+7. O sistema arredonda automaticamente notas com casas decimais para cima.
+
+---
+
+# Registro de Aulas
+
+**Caminho:** Ensino → Turmas e Diários → Meus Diários → Acessar Diário → Registro de Aulas
+
+**Passos:**
+1. Acessar a coluna "Registro de Aulas".
+2. Clicar em "Adicionar Aula".
+3. Preencher os dados da aula:
+   - Quantidade de aulas  
+   - Etapa  
+   - Data  
+   - Conteúdo  
+4. Clicar em "Salvar".
+
+---
+
+# Registro de Faltas
+
+**Caminho:** Ensino → Turmas e Diários → Meus Diários → Acessar Diário → Registro de Faltas
+
+**Passos:**
+1. Acessar a coluna "Registro de Faltas".
+2. Preencher as faltas dos alunos.
+3. Clicar em "Salvar Alterações".
+
+---
+
+# Envio de Mensagens para Alunos
+
+**Caminho:** Ensino → Turmas e Diários → Meus Diários → Acessar Diário → Enviar Mensagem
+
+**Passos:**
+1. Clicar em "Enviar Mensagem".
+2. Na página "Nova Mensagem", selecionar as opções de envio:
+   - Via SUAP  
+   - Via Email  
+   - Matrículas  
+3. Clicar em "Continuar".
+4. Preencher os campos da mensagem:
+   - Assunto  
+   - Conteúdo  
+   - Anexo (opcional)  
+   - Confirmação  
+5. Clicar em "Enviar Mensagem" para os alunos selecionados.

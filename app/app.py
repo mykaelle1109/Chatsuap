@@ -5,18 +5,27 @@ from llama_index.core.prompts import PromptTemplate
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.core.chat_engine.types import ChatMessage
 from dotenv import load_dotenv
-load_dotenv()
 import openai
 import random
 import os
 import redis
+import urllib.parse
 import json
 
-redis_client = redis.Redis(host='redis', port=6379, db=0, decode_responses=True)
+load_dotenv()
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 app.jinja_env.globals['random'] = lambda: random.randint(0, 99999)
 
+redis_url = os.environ.get("REDIS_URL")
+parsed = urllib.parse.urlparse(redis_url)
+redis_client = redis.Redis(
+    host=parsed.hostname,
+    port=parsed.port,
+    password=parsed.password,
+    ssl=True,
+    decode_responses=True
+)
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 Settings.llm = OpenAI(temperature=0.2, model="gpt-3.5-turbo")
@@ -112,7 +121,6 @@ def chat():
     response_obj = chat_engine.chat(user_input, chat_history=history)
     full_response = response_obj.response
 
-    # atualiza histórico
     history.append(ChatMessage(role="user", content=user_input))
     history.append(ChatMessage(role="assistant", content=full_response))
     save_history(user_id, history)
