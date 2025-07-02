@@ -2,5 +2,6 @@ llama-index>=0.10.0
 llama-index-readers-file
 openai
 flask
+markdown
 redis==5.0.1
 

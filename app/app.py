@@ -4,6 +4,8 @@ from llama_index.llms.openai import OpenAI
 from llama_index.core.prompts import PromptTemplate
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.core.chat_engine.types import ChatMessage
+from dotenv import load_dotenv
+load_dotenv()
 import openai
 import random
 import os
