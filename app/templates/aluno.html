@@ -1,16 +1,53 @@
-{% extends "base.html" %}
-{% block title %}ChatSUAP - Aluno{% endblock %}
-{% block content %}
-<div class="container py-5">
-  <div class="card shadow p-1 mx-auto" style="max-width: 720px; height: 80vh; display: flex; flex-direction: column;">
-    
-    <div id="chat" class="card-body overflow-auto px-2" style="flex: 1; background-color: #ffffff;"></div>
-    
-    <div class="card-footer bg-white border-top d-flex align-items-center p-0">
-      <input id="userInput" type="text" class="form-control me-2 rounded-pill" placeholder="Digite sua mensagem..." />
-      <button class="btn btn-primary rounded-pill" onclick="sendMessage()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="#ffffff" viewBox="0 0 256 256"><path d="M227.32,28.68a16,16,0,0,0-15.66-4.08l-.15,0L19.57,82.84a16,16,0,0,0-2.49,29.8L102,154l41.3,84.87A15.86,15.86,0,0,0,157.74,248q.69,0,1.38-.06a15.88,15.88,0,0,0,14-11.51l58.2-191.94c0-.05,0-.1,0-.15A16,16,0,0,0,227.32,28.68ZM157.83,231.85l-.05.14,0-.07-40.06-82.3,48-48a8,8,0,0,0-11.31-11.31l-48,48L24.08,98.25l-.07,0,.14,0L216,40Z"></path></svg>
-        </button>
+{% extends "base.html" %} {% block title %}ChatSUAP - Aluno{% endblock %} {%
+block content %}
+<div class="container align-items-center">
+  <div
+    class="card shadow p-0 mx-auto"
+    style="
+      max-width: 720px;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      border: #2100e6;
+    "
+  >
+    <div
+      class="justify-top p-3 text-center fs-5 text-white fw-bolder"
+      style="background-color: #3313e9"
+    >
+      ChatSuap
+    </div>
+    <div
+      id="chat"
+      class="card-body overflow-auto px-2"
+      style="flex: 1; background-color: #ffffff"
+    ></div>
+
+    <div class="card-footer bg-white border-top d-flex align-items-center p-3">
+      <input
+        id="userInput"
+        type="text"
+        class="form-control border-2 me-2 rounded-pill"
+        style="border-color: #2100e6"
+        placeholder="Digite sua mensagem..."
+      />
+      <button
+        class="btn rounded-pill"
+        style="background-color: #3313e9"
+        onclick="sendMessage()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="27"
+          height="27"
+          fill="#ffffff"
+          viewBox="0 0 256 256"
+        >
+          <path
+            d="M227.32,28.68a16,16,0,0,0-15.66-4.08l-.15,0L19.57,82.84a16,16,0,0,0-2.49,29.8L102,154l41.3,84.87A15.86,15.86,0,0,0,157.74,248q.69,0,1.38-.06a15.88,15.88,0,0,0,14-11.51l58.2-191.94c0-.05,0-.1,0-.15A16,16,0,0,0,227.32,28.68ZM157.83,231.85l-.05.14,0-.07-40.06-82.3,48-48a8,8,0,0,0-11.31-11.31l-48,48L24.08,98.25l-.07,0,.14,0L216,40Z"
+          ></path>
+        </svg>
+      </button>
     </div>
   </div>
 </div>
@@ -52,8 +89,6 @@
         <p class="mb-0" style="margin: 0;"></p>
         <small class="text-end text-muted">${getCurrentTime()}</small>
       </div>
-
-
     `;
 
     container.appendChild(wrapper);
@@ -86,7 +121,7 @@
       const response = await fetch("/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message, role: "aluno" }),
+        body: JSON.stringify({ message, role: "professor" }),
       });
 
       const data = await response.json();
@@ -102,4 +137,3 @@
 </script>
 
 {% endblock %}
-
